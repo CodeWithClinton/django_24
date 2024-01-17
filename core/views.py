@@ -14,7 +14,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Account created successfully")
-            return redirect("index")
+            return redirect("signin")
         
     context = {"form":form}
     return render(request, "core/signup.html", context)
@@ -52,7 +52,7 @@ def profile(request):
 def update_profile(request):
     if request.user.is_authenticated:
         user = request.user
-        form = UpdateProfileForm(request.FILES, instance=user)
+        form = UpdateProfileForm(instance=user)
         if request.method == 'POST':
             form = UpdateProfileForm(request.POST, request.FILES, instance=user)
             if form.is_valid():
